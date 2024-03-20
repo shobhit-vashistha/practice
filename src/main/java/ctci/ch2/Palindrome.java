@@ -76,19 +76,46 @@ public class Palindrome {
     }
 
     public static class RecPalindromeChecker implements PalindromeChecker {
-        @Override
-        public boolean isPalindrome(Node head) {
-            // TODO: implement recursive way, but why?
-            if (head == null || head.next == null) return true;
 
-            return false;
+        static class Result {
+            Node node;
+            boolean res;
+
+            public Result(Node node, boolean res) {
+                this.node = node;
+                this.res = res;
+            }
         }
 
-        public boolean isSubListPalindrome(Node n, int length) {
-            if (length == 0 || length == 1) return true;
+        private int length(Node head) {
+            Node curr = head;
+            int len = 0;
+            while (curr != null) {
+                curr = curr.next;
+                len++;
+            }
+            return len;
+        }
 
-            boolean res = isSubListPalindrome(n, length - 2);
-            return res;
+        @Override
+        public boolean isPalindrome(Node head) {
+            if (head == null || head.next == null) return true;
+            int len = length(head);
+            return isSubListPalindrome(head, len).res;
+        }
+
+        private Result isSubListPalindrome(Node n, int len) {
+            if (n == null || len == 0) return new Result(n, true);
+            if (len == 1) return new Result(n.next, true);
+
+            Result result = isSubListPalindrome(n.next, len - 2);
+
+            if (!result.res || result.node == null) return result;
+
+            result.res = n.data == result.node.data;
+            result.node = result.node.next;
+
+            return result;
         }
     }
 
@@ -160,8 +187,8 @@ public class Palindrome {
         System.out.print("StackPalindromeChecker -> ");
         System.out.println(test(pc2) ? "PASSED" : "FAILED");
 
-//        PalindromeChecker pc2 = new RevPalindromeChecker();
-//        System.out.print("RevPalindromeChecker -> ");
-//        System.out.println(test(pc1) ? "PASSED" : "FAILED");
+        PalindromeChecker pc3 = new RecPalindromeChecker();
+        System.out.print("RecPalindromeChecker -> ");
+        System.out.println(test(pc3) ? "PASSED" : "FAILED");
     }
 }
