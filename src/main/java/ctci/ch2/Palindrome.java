@@ -1,6 +1,8 @@
 package ctci.ch2;
 
 
+import java.util.Stack;
+
 public class Palindrome {
 
     public static class Node {
@@ -47,8 +49,29 @@ public class Palindrome {
     public static class StackPalindromeChecker implements PalindromeChecker {
         @Override
         public boolean isPalindrome(Node head) {
-            // TODO: implement stack way
-            return false;
+            if (head == null || head.next == null) return true; // return true in case of 0 or 1 length
+
+            Stack<Node> stack = new Stack<>();
+            Node slow = head;
+            Node fast = head;
+
+            while (fast != null && fast.next != null) {
+                stack.add(slow);
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+
+            // if length was odd, skip the middle node
+            if (fast != null) {
+                slow = slow.next;
+            }
+
+            while (slow != null) {
+                if (slow.data != stack.pop().data) return false;
+                slow = slow.next;
+            }
+
+            return true;
         }
     }
 
@@ -132,6 +155,10 @@ public class Palindrome {
         PalindromeChecker pc1 = new RevPalindromeChecker();
         System.out.print("RevPalindromeChecker -> ");
         System.out.println(test(pc1) ? "PASSED" : "FAILED");
+
+        PalindromeChecker pc2 = new StackPalindromeChecker();
+        System.out.print("StackPalindromeChecker -> ");
+        System.out.println(test(pc2) ? "PASSED" : "FAILED");
 
 //        PalindromeChecker pc2 = new RevPalindromeChecker();
 //        System.out.print("RevPalindromeChecker -> ");
