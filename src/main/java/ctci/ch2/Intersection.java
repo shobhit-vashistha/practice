@@ -41,6 +41,46 @@ public class Intersection {
         }
     }
 
+
+    private static class NoSetIntersectionChecker implements IntersectionChecker {
+        @Override
+        public Node find(Node h1, Node h2) {
+            if (h1 == null || h2 == null) return null;
+
+            Node n1 = h1;
+            int len1 = 1;
+            while (n1.next != null) {
+                n1 = n1.next;
+                len1++;
+            }
+
+            Node n2 = h2;
+            int len2 = 1;
+            while (n2.next != null) {
+                n2 = n2.next;
+                len2++;
+            }
+
+            if (n1 != n2) return null;
+
+            n1 = h1;
+            n2 = h2;
+            if (len1 > len2) {
+                for (int i = 0; i < len1 - len2; i++) n1 = n1.next;
+            } else if (len2 > len1) {
+                for (int i = 0; i < len2 - len1; i++) n2 = n2.next;
+            }
+
+            while (n1 != null && n2 != null) {
+                if (n1 == n2) return n1;
+                n1 = n1.next;
+                n2 = n2.next;
+            }
+
+            return null;
+        }
+    }
+
     private static boolean test(IntersectionChecker ic) {
         Node single = new Node(0);
         Node[][] inputs = {
@@ -113,6 +153,11 @@ public class Intersection {
 
     public static void main(String[] args) {
         IntersectionChecker ic1 = new SetIntersectionChecker();
+        System.out.println("SetIntersectionChecker");
         System.out.println(test(ic1) ? "PASSED" : "FAILED");
+
+        IntersectionChecker ic2 = new NoSetIntersectionChecker();
+        System.out.println("NoSetIntersectionChecker");
+        System.out.println(test(ic2) ? "PASSED" : "FAILED");
     }
 }
