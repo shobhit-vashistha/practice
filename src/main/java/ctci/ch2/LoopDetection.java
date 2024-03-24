@@ -58,7 +58,7 @@ public class LoopDetection {
             // which should be double the distance slow pointer has covered, so
             // => 2 * (l1 + l2) = l1 + l2 + n.C
             // => l1 = n.C - l2
-            // i.e. the length outside the loop is equal to the distance slow pointer will have to reach back to the cycle start (plus some constant times cycle length)
+            // i.e. the length outside the loop is equal to the distance slow pointer will have to reach back to the cycle start (plus some integer times cycle length)
             fast = head;
             while (fast != slow) {
                 fast = fast.next;
@@ -130,6 +130,6 @@ public class LoopDetection {
 
         LoopDetector ld2 = new RunnerLoopDetector();
         System.out.println("RunnerLoopDetector");
-        System.out.println(test(ld1) ? "PASSED" : "FAILED");
+        System.out.println(test(ld2) ? "PASSED" : "FAILED");
     }
 }
