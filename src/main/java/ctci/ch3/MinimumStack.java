@@ -1,6 +1,7 @@
 package ctci.ch3;
 
 import java.util.EmptyStackException;
+import java.util.Stack;
 
 public class MinimumStack {
 
@@ -55,6 +56,55 @@ public class MinimumStack {
         public T min() {
             if (top == null) throw new EmptyStackException();
             return min.data;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return top == null;
+        }
+    }
+
+    public static class BetterMinStack<T extends Comparable<T>> implements MinStack<T> {
+
+        private final Stack<T> minStack = new Stack<>();
+        private Node<T> top;
+
+        private static class Node<T> {
+            T data;
+            Node<T> next;
+
+            public Node(T data) {
+                this.data = data;
+            }
+        }
+
+        @Override
+        public void push(T data) {
+            Node<T> n = new Node<>(data);
+            n.next = top;
+            top = n;
+            if (minStack.isEmpty() || data.compareTo(minStack.peek()) <= 0) minStack.push(data);
+        }
+
+        @Override
+        public T pop() {
+            if (top == null) throw new EmptyStackException();
+            T data = top.data;
+            if (data.compareTo(minStack.peek()) == 0) minStack.pop();
+            top = top.next;
+            return data;
+        }
+
+        @Override
+        public T peek() {
+            if (top == null) throw new EmptyStackException();
+            return top.data;
+        }
+
+        @Override
+        public T min() {
+            if (top == null) throw new EmptyStackException();
+            return minStack.peek();
         }
 
         @Override
@@ -131,8 +181,8 @@ public class MinimumStack {
         System.out.println("SimpleMinStack");
         System.out.println(test(minStack1) ? "PASSED" : "FAILED");
 
-        MinStack<Integer> minStack2 = new SimpleMinStack<>();
-        System.out.println("SimpleMinStack");
+        MinStack<Integer> minStack2 = new BetterMinStack<>();
+        System.out.println("BetterMinStack");
         System.out.println(test(minStack2) ? "PASSED" : "FAILED");
     }
 
