@@ -23,15 +23,15 @@ public class StackOfPlates {
      */
     public static class SimpleSetOfStacks<T> implements SetOfStacks<T> {
 
-        protected final int threshold;
-        protected final List<Stack<T>> stackList = new ArrayList<>();
+        private final int threshold;
+        private final List<Stack<T>> stackList = new ArrayList<>();
 
         public SimpleSetOfStacks(int threshold) {
             if (threshold < 1) throw new IllegalArgumentException();
             this.threshold = threshold;
         }
 
-        protected Stack<T> getCurrStack() {
+        private Stack<T> getCurrStack() {
             if (stackList.isEmpty()) return null;
             return stackList.get(stackList.size() - 1);
         }
@@ -65,22 +65,23 @@ public class StackOfPlates {
         }
     }
 
-    public static class RollingSetOfStacks<T> extends SimpleSetOfStacks<T> {
+    public static class RollingSetOfStacks<T> implements SetOfStacks<T> {
         // TODO: We will need to implement this with a doubly linked list, it is tedious though, and unnecessary IMO
 
-        public RollingSetOfStacks(int threshold) {
-            super(threshold);
+        @Override
+        public void push(T data) {
+
+        }
+
+        @Override
+        public T pop() {
+            return null;
         }
 
         @Override
         public T popAt(int index) {
-            if (index < 0 || index >= stackList.size()) throw new IndexOutOfBoundsException();
-            Stack<T> stack = stackList.get(index);
-            T res = stack.pop();
-            if (stack.isEmpty()) stackList.remove(index);
-            return res;
+            return null;
         }
-
 
     }
 

@@ -37,4 +37,15 @@ public class Stack<T> {
         return top == null;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        Node<T> curr = top;
+        while (curr != null) {
+            stringBuilder.append(curr.data);
+            curr = curr.next;
+            if (curr != null) stringBuilder.append(" | ");
+        }
+        return stringBuilder.toString();
+    }
 }

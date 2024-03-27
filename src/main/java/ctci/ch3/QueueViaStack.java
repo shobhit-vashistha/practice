@@ -3,7 +3,7 @@ package ctci.ch3;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-public class QueueViaStack<T> {
+public class QueueViaStack {
 
     interface Queue<T> {
         void add(T data);
