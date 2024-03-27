@@ -3,6 +3,10 @@ package ctci.ch3;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+/**
+ * Stack Min: How would you design a stack which, in addition to push and pop, has a function min
+ * which returns the minimum element? Push, pop and min should ail operate in 0(1) time.
+ */
 public class MinimumStack {
 
     interface MinStack<T extends Comparable<T>> {

@@ -3,6 +3,9 @@ package ctci.ch2;
 
 import java.util.Stack;
 
+/**
+ * Palindrome: Implement a function to check if a linked list is a palindrome.
+ */
 public class Palindrome {
 
     public static class Node {

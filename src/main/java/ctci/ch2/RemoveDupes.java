@@ -3,6 +3,11 @@ package ctci.ch2;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Remove Dups: Write code to remove duplicates from an unsorted linked list.
+ * FOLLOW UP
+ * How would you solve this problem if a temporary buffer is not allowed?
+ */
 public class RemoveDupes {
 
     public static class Node {

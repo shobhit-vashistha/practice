@@ -3,6 +3,9 @@ package ctci.ch3;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
+/**
+ * Queue via Stacks: Implement a MyQueue class which implements a queue using two stacks.
+ */
 public class QueueViaStack {
 
     interface Queue<T> {
